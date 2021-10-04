@@ -30,7 +30,8 @@ map_drape(res, src='esri.aerial', alpha=1 ...) # many options now available here
 
 **Future things:**
 
-*other map overlays*
+*other map overlays:*
+
 Lower priority but would still be cool to be able to overlay maps from the main
 mapping libraries onto a 3D surface easily...
 
@@ -41,7 +42,8 @@ ggplot_drape()
 plot_3d_mesh()
 ```
 
-*styles*
+*styles:*
+
 Not sure on this yet but... maybe some helpers to condense sequences of shadow/
 texture functions.
 
