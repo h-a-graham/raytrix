@@ -1,69 +1,87 @@
 #canvas
 
 # check extent and proj validity... Need to add check for projected CRS.
+# check extent and projection are valid. from {gdlaio}
+# https://github.com/hypertidy/gdalio/blob/main/R/default_grid.R
 is_canvas_valid <- function(x){
-  # check extent and projection are valid. from {gdlaio}
-  # https://github.com/hypertidy/gdalio/blob/main/R/default_grid.R
   has_extent <- is.numeric(x[["extent"]]) && length(x[["extent"]] == 4) && all(!is.na(x[["extent"]])) &&
     diff(x[["extent"]][1:2]) > 0 && diff(x[["extent"]][3:4]) > 0
   if (!has_extent) stop("invalid extent")
 
   has_proj <- is.character(x[["projection"]]) && length(x[["projection"]] == 1) && !is.na(x[["projection"]])
   if (!has_proj) stop("invalid projection")
-  x
+  return(x)
+}
+
+# check if crs is cartesian
+is.cartesian <- function(x){
+  if (!sf::st_is_longlat(4326)) {
+    return(TRUE)
+  } else {
+    warning("Canvas CRS converted to EPSG:3857. {rayshader} does not support unequal sized grids")
+    return(FALSE)
+  }
+
 }
 
 # check valiity and set default canvas
 set_project_canvas <- function(x){
-
   x <- is_canvas_valid(x)
-
   options(raytrix.canvas=x)
 }
 
-# some kind of check neeed for
-is.cartesian <- function(x){
-  if (length(grep('Cartesian', sf::st_crs(x)$wkt))>0) {
-    return(TRUE)
-    } else {
-      warning("Canvas CRS converted to EPSG:3857. {rayshader} does not support
-            unequal sized grids")
-      return(FALSE)
-    }
+#' set/get the canvas of the rayshader-ratrix project
+#'
+#' To enable the downloading of rayshader-readable data for a desired extent,
+#' it is necessary to set the rayshader-ratrix scene canvas using one of the
+#' `set_canvas_x()` functions.
+#'
+#' To retrieve this information use `get_canvas()`
+#'
+#' @name raytrix_set_canvas
+#' @param bounds vector of length 4. e.g. `c(xmin, xmax, ymin, ymax)`
+#' @param crs The Coordinate reference system of the canvas. Eiher a numeric
+#' EPSG code or a proj string such as "+proj=longlat +datum=WGS84".
+#'
+#' @export
+set_canvas <- function(.bounds, crs){
 
-}
+  is.cartesian(crs)
 
+  if (is.numeric(crs)) {       # if EPSG numeric is given convert to wkt
+    crs <- sf::st_crs(crs)$wkt
+  }
 
-# basic call()
-set_canvas <- function(xmin,xmax, ymin, ymax, crs){
-
-
-  canvas0 <- list(extent = c(xmin, xmax, ymin, ymax),
-                  projection = st_crs(aoi)$wkt)
+  canvas0 <- list(extent = c(.bounds[1], .bounds[2], .bounds[3], .bounds[4]),
+                  projection = crs)
 
   set_project_canvas(canvas0)
 
 }
 
 
+#' @name raytrix_set_canvas
+#' @param .sf The sf/sfc object used to set the extent and crs of the canvas
+#' @param mask Default is F. NOT WORKING YET!
+#'
+#' @export
+set_canvas_sf <- function(.sf, mask=F){
 
-
-
-set_canvas_sf <- function(x, res, mask=T){
-
-  if (!is.cartesian(x)) {
-    x <- sf::st_transform(x, crs=3857)
+  if (!is.cartesian(.sf)) {
+    .sf <- sf::st_transform(.sf, crs=3857)
   }
 
-  bounds <- x %>%
+  bounds <- .sf %>%
     st_bbox()
   canvas0 <- list(extent = c(bounds$xmin, bounds$xmax, bounds$ymin, bounds$ymax),
-                projection = st_crs(aoi)$wkt)
-  options(raytrix.canvas=canvas0)
+                projection = st_crs(.sf)$wkt)
+
+  set_project_canvas(canvas0)
 }
 
 
-
+#' @name raytrix_set_canvas
+#' @export
 get_canvas <- function(){
 
   if (is.null(getOption("raytrix.canvas"))){
