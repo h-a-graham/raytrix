@@ -36,7 +36,7 @@ mapping libraries onto a 3D surface easily...
 
 ```
 tmap_drape()
-mapsf__drape()
+mapsf_drape()
 ggplot_drape()
 plot_3d_mesh()
 ```
