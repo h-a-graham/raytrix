@@ -36,6 +36,7 @@ Lower priority but would still be cool to be able to overlay maps from the main
 mapping libraries onto a 3D surface easily...
 
 ```
+osm_drape() # drape osm data from {osmextract}
 tmap_drape()
 mapsf_drape()
 ggplot_drape()
