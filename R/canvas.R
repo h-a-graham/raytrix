@@ -79,20 +79,58 @@ set_canvas_sf <- function(.sf, mask=F){
   set_project_canvas(canvas0)
 }
 
+#' @name raytrix_set_canvas
+#' @param lat ...
+#' @param long ...
+#' @param radius ...
+#' @param crs ...
+#'
+#' @export
+set_canvas_centroid <- function(lat, long, radius=5000,
+                                crs="+proj=longlat +datum=WGS84"){
+
+  extent_sfc <- sf::st_sfc(sf::st_point(c(long, lat)))%>%
+    sf::st_set_crs(crs)
+
+  if (!is.cartesian(sf::st_crs(crs))) {
+    extent_sfc <- extent_sfc %>%
+      sf::st_transform(crs=3857)
+  }
+
+  extent_sfc <- extent_sfc %>%
+    sf::st_buffer(radius)%>%
+    sf::st_bbox()%>%
+    sf::st_as_sfc()
+
+
+
+  set_canvas_sf(extent_sfc)
+}
+
 
 #' @name raytrix_set_canvas
 #' @export
-get_canvas <- function(){
+get_canvas <- function(res){
 
   if (is.null(getOption("raytrix.canvas"))){
     stop("Raytrix canvas has not been set. Please set this using one of the
          following functions: set_canvas(), set_canvas_raster(),
          set_canvas_sf(), set_canvas_centroid()")
-  } else {
-
-    getOption("raytrix.canvas")
-
   }
+
+  if (missing(res)){
+    return(getOption("raytrix.canvas"))
+    } else {
+
+      g <- getOption("raytrix.canvas")
+
+      g$dimension = c(x = ceiling((as.numeric(g$extent[2]-g$extent[1]))/res),
+                      y = ceiling((as.numeric(g$extent[4]-g$extent[3]))/res))
+
+      return(g)
+
+      }
+
 }
 
 

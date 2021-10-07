@@ -4,6 +4,7 @@
 \alias{raytrix_set_canvas}
 \alias{set_canvas}
 \alias{set_canvas_sf}
+\alias{set_canvas_centroid}
 \alias{get_canvas}
 \title{set/get the canvas of the rayshader-ratrix project}
 \usage{
@@ -11,15 +12,27 @@ set_canvas(.bounds, crs)
 
 set_canvas_sf(.sf, mask = F)
 
-get_canvas()
+set_canvas_centroid(
+  lat,
+  long,
+  radius = 5000,
+  crs = "+proj=longlat +datum=WGS84"
+)
+
+get_canvas(res)
 }
 \arguments{
-\item{crs}{The Coordinate reference system of the canvas. Eiher a numeric
-EPSG code or a proj string such as "+proj=longlat +datum=WGS84".}
+\item{crs}{...}
 
 \item{.sf}{The sf/sfc object used to set the extent and crs of the canvas}
 
 \item{mask}{Default is F. NOT WORKING YET!}
+
+\item{lat}{...}
+
+\item{long}{...}
+
+\item{radius}{...}
 
 \item{bounds}{vector of length 4. e.g. \code{c(xmin, xmax, ymin, ymax)}}
 }

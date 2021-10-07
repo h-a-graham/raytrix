@@ -1,5 +1,9 @@
 .Rproj.user
 .Rhistory
 
+# cache folders
+
+gdalwmscache/
+
 # testing folders
 dev_tests/
