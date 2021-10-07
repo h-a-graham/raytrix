@@ -15,7 +15,7 @@ is_canvas_valid <- function(x){
 
 # check if crs is cartesian
 is.cartesian <- function(x){
-  if (!sf::st_is_longlat(4326)) {
+  if (!sf::st_is_longlat(x)) {
     return(TRUE)
   } else {
     warning("Canvas CRS converted to EPSG:3857. {rayshader} does not support unequal sized grids")
@@ -28,6 +28,19 @@ is.cartesian <- function(x){
 set_project_canvas <- function(x){
   x <- is_canvas_valid(x)
   options(raytrix.canvas=x)
+}
+
+#' set a global canvas
+#'
+#' ...info
+#'
+#' @export
+set_canvas_globe <- function() {
+
+
+  set_project_canvas(list(extent = c(-20026376.39, 20026376.39,
+                                     -20048966.10, 20048966.10),
+       projection = sf::st_crs(3857)$wkt))
 }
 
 #' set/get the canvas of the rayshader-ratrix project
@@ -72,9 +85,9 @@ set_canvas_sf <- function(.sf, mask=F){
   }
 
   bounds <- .sf %>%
-    st_bbox()
+    sf::st_bbox()
   canvas0 <- list(extent = c(bounds$xmin, bounds$xmax, bounds$ymin, bounds$ymax),
-                projection = st_crs(.sf)$wkt)
+                projection = sf::st_crs(.sf)$wkt)
 
   set_project_canvas(canvas0)
 }
@@ -134,5 +147,15 @@ get_canvas <- function(res){
 }
 
 
+
+#' @export
+canvasExent <- function(){
+
+  canvas <- get_canvas()
+
+  setClass('Extent', representation(xmin='numeric', xmax='numeric', ymin='numeric', ymax='numeric'))
+  new('Extent', xmin=canvas$extent[1], xmax=canvas$extent[2],
+               ymin=canvas$extent[3], ymax=canvas$extent[4])
+}
 
 

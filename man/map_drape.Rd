@@ -8,6 +8,7 @@ map_drape(
   res,
   src = "wms_arcgis_mapserver_ESRI.WorldImagery_tms",
   alpha = 1,
+  resample = "Average",
   ...
 )
 }

@@ -4,7 +4,7 @@
 \alias{topo_matrix}
 \title{Get topography matrix}
 \usage{
-topo_matrix(res, src = "aws", ...)
+topo_matrix(res, src = "aws", resample = "CubicSpline", ...)
 }
 \arguments{
 \item{res}{The desired cell resolution of the matrix in canvas CRS units.}

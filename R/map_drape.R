@@ -19,12 +19,17 @@ map_drape <- function(res, src="wms_arcgis_mapserver_ESRI.WorldImagery_tms",
     m <- matrix(.v, g$dimension[1])#[,g$dimension[2]:1, drop = F]
 
     rotate <- function(x) t(apply(x, 2, rev))
-    rotate(m)
+    rotate(m)#%>%
+    # rotate(rotate(m)) %>%
+    # apply(2,rev) %>%
+      # t()
+    # rotate()
+    # rotate(rotate(m))
   }
 
   v2 <- lapply(v, matrix_thing)
-  a <- matrix(NA, g$dimension[1],g$dimension[2])
-  aa <- array(c(unlist(v2, use.names = FALSE), a), c(g$dimension[1], g$dimension[2], 4))[,g$dimension[2]:1, , drop = FALSE]
+  a <- matrix(NA, g$dimension[2],g$dimension[1])
+  aa <- array(c(unlist(v2, use.names = FALSE), a), c(g$dimension[2], g$dimension[1], 4))[,g$dimension[1]:1, , drop = FALSE]
   aa <- aa%>%
     scales::rescale(.,to=c(0,1))
   aa[,,4] <- alpha

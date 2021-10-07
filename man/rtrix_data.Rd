@@ -4,7 +4,7 @@
 \alias{rtrix_data}
 \title{High Level Data download method.}
 \usage{
-rtrix_data(dsn, res, ..., bands = 1L)
+rtrix_data(dsn, res, resample, ..., bands = 1L)
 }
 \arguments{
 \item{res}{The desired cell resolution of the matrix in canvas CRS units.}

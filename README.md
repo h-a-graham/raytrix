@@ -28,6 +28,16 @@ topo_matrix(res, src='aws', ...)  # currently best source is 'aws' possibl limit
 map_drape(res, src='esri.aerial', alpha=1 ...) # many options now available here - need to check in on API Key requirements.
 ```
 
+**Helpers**
+
+Some functions to make life easier...
+
+```
+rt_extent() -get canvas extent as raster::Extent class
+
+```
+
+
 **Future things:**
 
 *other map overlays:*
