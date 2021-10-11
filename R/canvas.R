@@ -18,7 +18,8 @@ is.cartesian <- function(x){
   if (!sf::st_is_longlat(x)) {
     return(TRUE)
   } else {
-    warning("Canvas CRS converted to EPSG:3857. {rayshader} does not support unequal sized grids")
+    warning(paste0("Canvas CRS is not cartesian. This probably doesn't matter",
+                   "Be careful of the units you use to specify `res`"))
     return(FALSE)
   }
 
@@ -36,11 +37,10 @@ set_project_canvas <- function(x){
 #'
 #' @export
 set_canvas_globe <- function() {
+    set_project_canvas(list(extent = c(-180, 180,
+                                       -90, 90),
+                            projection = "+proj=longlat +datum=WGS84"))
 
-
-  set_project_canvas(list(extent = c(-20026376.39, 20026376.39,
-                                     -20048966.10, 20048966.10),
-       projection = sf::st_crs(3857)$wkt))
 }
 
 #' set/get the canvas of the rayshader-ratrix project
@@ -61,9 +61,9 @@ set_canvas <- function(.bounds, crs){
 
   is.cartesian(crs)
 
-  if (is.numeric(crs)) {       # if EPSG numeric is given convert to wkt
-    crs <- sf::st_crs(crs)$wkt
-  }
+  # if (is.numeric(crs)) {       # if EPSG numeric is given convert to wkt
+  #   crs <- sf::st_crs(crs)$wkt
+  # }
 
   canvas0 <- list(extent = c(.bounds[1], .bounds[2], .bounds[3], .bounds[4]),
                   projection = crs)
@@ -79,10 +79,10 @@ set_canvas <- function(.bounds, crs){
 #'
 #' @export
 set_canvas_sf <- function(.sf, mask=F){
-
-  if (!is.cartesian(.sf)) {
-    .sf <- sf::st_transform(.sf, crs=3857)
-  }
+  is.cartesian(.sf)
+  # if (!is.cartesian(.sf)) {
+  #   .sf <- sf::st_transform(.sf, crs=3857)
+  # }
 
   bounds <- .sf %>%
     sf::st_bbox()
@@ -105,9 +105,11 @@ set_canvas_centroid <- function(lat, long, radius=5000,
   extent_sfc <- sf::st_sfc(sf::st_point(c(long, lat)))%>%
     sf::st_set_crs(crs)
 
-  if (!is.cartesian(sf::st_crs(crs))) {
+  if (!suppressWarnings(is.cartesian(sf::st_crs(crs)))) {
     extent_sfc <- extent_sfc %>%
       sf::st_transform(crs=3857)
+    warning(paste0('`set_canvas_centroid() `converts coordinates to web mercator for convnience.',
+            'to set a specific canvas extent and crs use `set_canvas()`'))
   }
 
   extent_sfc <- extent_sfc %>%

@@ -9,7 +9,7 @@
 #' @param alpha default 1, set transparency of overlay
 #' data.
 #' @export
-map_drape <- function(res, src="wms_arcgis_mapserver_ESRI.WorldImagery_tms",
+map_drape <- function(res, src="wms_virtualearth",
                       alpha=1, resample = 'Average', ...){
   src <- get_map_xml(src)
   v <- rtrix_data(src, res, resample, ..., bands = 1:3)
@@ -20,11 +20,6 @@ map_drape <- function(res, src="wms_arcgis_mapserver_ESRI.WorldImagery_tms",
 
     rotate <- function(x) t(apply(x, 2, rev))
     rotate(m)#%>%
-    # rotate(rotate(m)) %>%
-    # apply(2,rev) %>%
-      # t()
-    # rotate()
-    # rotate(rotate(m))
   }
 
   v2 <- lapply(v, matrix_thing)
