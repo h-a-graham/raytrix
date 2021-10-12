@@ -3,12 +3,16 @@
 \name{raytrix_set_canvas}
 \alias{raytrix_set_canvas}
 \alias{set_canvas}
+\alias{set_canvas_world}
 \alias{set_canvas_sf}
 \alias{set_canvas_centroid}
 \alias{get_canvas}
+\alias{canvasExent}
 \title{set/get the canvas of the rayshader-ratrix project}
 \usage{
-set_canvas(.bounds, crs)
+set_canvas(bounds, projection)
+
+set_canvas_world()
 
 set_canvas_sf(.sf, mask = F)
 
@@ -16,15 +20,19 @@ set_canvas_centroid(
   lat,
   long,
   radius = 5000,
-  crs = "+proj=longlat +datum=WGS84"
+  projection = "+proj=longlat +datum=WGS84"
 )
 
 get_canvas(res)
+
+canvasExent()
 }
 \arguments{
-\item{crs}{...}
+\item{bounds}{numeric vector of length 4. e.g. \code{c(xmin, xmax, ymin, ymax)}}
 
-\item{.sf}{The sf/sfc object used to set the extent and crs of the canvas}
+\item{projection}{...}
+
+\item{.sf}{The sf/sfc object used to set the extent and projection of the canvas}
 
 \item{mask}{Default is F. NOT WORKING YET!}
 
@@ -34,13 +42,54 @@ get_canvas(res)
 
 \item{radius}{...}
 
-\item{bounds}{vector of length 4. e.g. \code{c(xmin, xmax, ymin, ymax)}}
+\item{res}{A resolution (i.e pixel dimensions) in the units of the canvas crs
+(\verb{get_canvas()$})}
 }
 \description{
 To enable the downloading of rayshader-readable data for a desired extent,
 it is necessary to set the rayshader-ratrix scene canvas using one of the
-\code{set_canvas_x()} functions.
+\code{set_canvas_x()} functions. See details for additional info.
 }
 \details{
-To retrieve this information use \code{get_canvas()}
+\code{set_canvas()} offers the most control over the extent and projection of the
+raytrix canvas. Use \code{set_canvas_world()} for a basic WGS84 extent of the
+world; this is deliberately simple, for alternative global projections use
+\code{set_canvas()}. \code{set_canvas_sf()} sets the canvas from an sf or sfc object;
+this can be especially useful when you intend to plot sf features as
+overlays. \code{set_canvas_centroid()} allows for the provision of lat long
+coordinates and a buffer (in meters) around that point to set the extent;
+this function takes WGS84 coords by default (although this can be changed)
+but will always convert to Pseudo Mercator for convenience. To retrieve this
+information use \code{get_canvas()} which returns a list including: \code{extent},
+\code{projection} and (if \code{res} is provided) \code{dimension}. \code{canvasExent()} returns
+a raytrix extent object which is a copy of a {raster} Extent object. This can
+be used in combination with {rayshader} functions such as
+\code{generate_polygon_overlay()} to provide the extent of the topography matrix.
+}
+\examples{
+# set canvas with Universal Polar Stereographic
+set_canvas(c(-4e7,  4e7, -4e7,  4e7 ),'+proj=ups')
+get_canvas()
+get_canvas(4e4)
+
+# set canvas with tilted perspective...
+set_canvas(c(-3.8e6,  3.8e6, -3.8e6,  3.8e6 ),'+proj=tpers +h=5500000 +lat_0=40')
+get_canvas(4e4)
+
+# set WGS84 global extent
+set_canvas_world()
+get_canvas(0.7)
+
+# set canvas for Mt. St Helens
+set_canvas_centroid(46.200732, -122.187082, radius = 7000)
+get_canvas(10)
+
+# set canvas with sf object.
+library(sf)
+demo(nc, ask = FALSE, echo = FALSE)
+set_canvas_sf(nc)
+get_canvas(7e-3)
+
+canvas_extent()
+
 }
