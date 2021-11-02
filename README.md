@@ -1,12 +1,13 @@
+<!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/h-a-graham/raytrix/branch/main/graph/badge.svg)](https://codecov.io/gh/h-a-graham/raytrix?branch=main)
+<!-- badges: end -->
 # raytrix
 A {rayshader} plugin providing a spatial framework and convenience functions for 
 accessing and translating spatial data
 
 **This is VERY in-development! Lots of cool stuff to come hopefully but for now things are fairly bare bones.**
 
-<!-- badges: start -->
-[![Codecov test coverage](https://codecov.io/gh/h-a-graham/raytrix/branch/main/graph/badge.svg)](https://codecov.io/gh/h-a-graham/raytrix?branch=main)
-<!-- badges: end -->
+
 
 
 Current plan...

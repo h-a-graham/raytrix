@@ -7,3 +7,7 @@ gdalwmscache/
 
 # testing folders
 dev_tests/
+
+#code coverage script
+
+tests/code_cover.R
