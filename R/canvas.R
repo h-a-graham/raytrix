@@ -197,7 +197,9 @@ canvasExent <- function(){
 
   canvas <- get_canvas()
 
-  setClass('Extent', representation(xmin='numeric', xmax='numeric', ymin='numeric', ymax='numeric'))
+  setClass('Extent', representation(xmin='numeric', xmax='numeric',
+                                    ymin='numeric', ymax='numeric'),
+           package='raytrix')
   new('Extent', xmin=canvas$extent[1], xmax=canvas$extent[2],
                ymin=canvas$extent[3], ymax=canvas$extent[4])
 }

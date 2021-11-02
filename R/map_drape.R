@@ -12,14 +12,15 @@
 map_drape <- function(res, src="wms_virtualearth",
                       alpha=1, resample = 'Average', ...){
   src <- get_map_xml(src)
+
+  # gdalio::gdalio_set_default_grid(get_canvas(res))
+  # v <- gdalio_data(src, resample, ..., bands = 1:3)
   v <- rtrix_data(src, res, resample, ..., bands = 1:3)
   g <- get_canvas(res)
 
   matrix_thing <- function(.v){
-    m <- matrix(.v, g$dimension[1])#[,g$dimension[2]:1, drop = F]
-
-    rotate <- function(x) t(apply(x, 2, rev))
-    rotate(m)#%>%
+    m <- matrix(as.numeric(.v), g$dimension[1])#[,g$dimension[2]:1, drop = F]
+    rotate(m)
   }
 
   v2 <- lapply(v, matrix_thing)

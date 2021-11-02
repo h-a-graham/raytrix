@@ -17,7 +17,6 @@ topo_matrix <- function(res, src='aws', resample='CubicSpline', ...) {
 
     m <- matrix(v[[1]], g$dimension[1])[,g$dimension[2]:1, drop = F]
 
-    rotate <- function(x) t(apply(x, 2, rev))
     rotate(rotate(m)) %>%
       apply(2,rev)
 }
