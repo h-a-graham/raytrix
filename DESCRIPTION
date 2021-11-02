@@ -23,4 +23,7 @@ Imports:
 Depends: 
     R (>= 3.5.0)
 Suggests: 
-    rgdal (>= 1.5-23)
+    testthat (>= 3.0.0),
+    rgdal (>= 1.5-23),
+    covr
+Config/testthat/edition: 3
