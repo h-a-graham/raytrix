@@ -1,3 +1,4 @@
 ^raytrix\.Rproj$
 ^\.Rproj\.user$
 ^codecov\.yml$
+^gdalwmscache$

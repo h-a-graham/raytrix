@@ -19,7 +19,8 @@ Imports:
   sf,
   magrittr,
   raster,
-  purrr
+  purrr,
+  scales
 Depends: 
     R (>= 3.5.0)
 Suggests: 
