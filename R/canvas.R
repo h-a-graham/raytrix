@@ -132,6 +132,26 @@ set_canvas_sf <- function(.sf, mask=F){
 }
 
 #' @name raytrix_set_canvas
+#' @param .raster The raster object used to set the extent and projection of the canvas
+#' @param mask Default is F. NOT WORKING YET!
+#'
+#' @export
+set_canvas_raster <- function(.raster, mask=F){
+  is.cartesian(.raster)
+  # if (!is.cartesian(.sf)) {
+  #   .sf <- sf::st_transform(.sf, crs=3857)
+  # }
+
+  bounds <- .raster %>%
+    raster::extent()
+  canvas0 <- list(extent = c(bounds[1], bounds[2], bounds[3], bounds[4]),
+                  projection = sf::st_crs(.raster)$wkt)
+
+  set_project_canvas(canvas0)
+}
+
+
+#' @name raytrix_set_canvas
 #' @param lat ...
 #' @param long ...
 #' @param radius ...

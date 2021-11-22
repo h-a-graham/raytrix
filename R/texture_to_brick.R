@@ -12,10 +12,11 @@
 #' data.
 #' @export
 texture_to_brick <- function(texture){
+
   raster::brick(scales::rescale(texture, to = c(0, 255)),
-                         xmn = get_canvas()$extent[1],
-                         xmx = get_canvas()$extent[2],
-                         ymn = get_canvas()$extent[3],
-                         ymx = get_canvas()$extent[4],
-                         crs = get_canvas()$projection)
+                xmn = get_canvas()$extent[1],
+                xmx = get_canvas()$extent[2],
+                ymn = get_canvas()$extent[3],
+                ymx = get_canvas()$extent[4],
+                crs = get_canvas()$projection)
 }

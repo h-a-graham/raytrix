@@ -20,11 +20,19 @@ Imports:
   magrittr,
   raster,
   purrr,
-  scales
+  scales,
+  vapour (>= 0.8.0),
+  gdalwebsrv,
+  topography,
+  scales,
+  methods
 Depends: 
     R (>= 3.5.0)
 Suggests: 
     testthat (>= 3.0.0),
     rgdal (>= 1.5-23),
     covr
+Remotes:
+    hypertidy/topography
+    hypertidy/gdalwebsrv
 Config/testthat/edition: 3

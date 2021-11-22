@@ -5,6 +5,7 @@
 \alias{set_canvas}
 \alias{set_canvas_world}
 \alias{set_canvas_sf}
+\alias{set_canvas_raster}
 \alias{set_canvas_centroid}
 \alias{get_canvas}
 \alias{canvasExent}
@@ -15,6 +16,8 @@ set_canvas(bounds, projection)
 set_canvas_world()
 
 set_canvas_sf(.sf, mask = F)
+
+set_canvas_raster(.raster, mask = F)
 
 set_canvas_centroid(
   lat,
@@ -35,6 +38,8 @@ canvasExent()
 \item{.sf}{The sf/sfc object used to set the extent and projection of the canvas}
 
 \item{mask}{Default is F. NOT WORKING YET!}
+
+\item{.raster}{The raster object used to set the extent and projection of the canvas}
 
 \item{lat}{...}
 
