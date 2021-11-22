@@ -33,6 +33,6 @@ Suggests:
     rgdal (>= 1.5-23),
     covr
 Remotes:
-    hypertidy/topography
+    hypertidy/topography,
     hypertidy/gdalwebsrv
 Config/testthat/edition: 3
