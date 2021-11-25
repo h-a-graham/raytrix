@@ -49,7 +49,8 @@ get_map_xml<- function(.src){
   if (.src %in% gdalwebsrv::available_sources()){
     return(gdalwebsrv::server_file(.src))
   } else {
-    stop('The requested topography data source is not available.
-         Use gdalwebsrv::available_sources() to get available options.')
+    warning('The requested map data source is not available from {gdalwebsrv}.
+         Assuming custom src has been supplied...')
+    return(.src)
   }
 }

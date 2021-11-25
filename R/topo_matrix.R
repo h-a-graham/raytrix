@@ -42,7 +42,8 @@ get_topo_xml<- function(.src){
   if (.src %in% topo_sources()){
     return(topography::topography_source(.src))
   } else {
-    stop('The requested topography data source is not available.
-         Use raytrix::topo_sources() to get available options.')
+    warning('The requested topography data source is not available from {topography}.
+         Assuming custom src has been supplied...')
+    return(.src)
   }
 }
