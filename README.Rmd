@@ -1,0 +1,100 @@
+---
+output: 
+  github_document:
+    fig_width: 7.5
+    fig_height: 6
+  html_preview: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+rayvista
+=========================================================
+
+```{r hexData, include=FALSE}
+library(raytrix)
+library(rayshader)
+library(scico)
+library(sf)
+library(graticule)
+
+# set_canvas_world()
+
+prj <- '+proj=tpeqd +lat_1=60 +lat_2=65'
+
+
+grat <- st_graticule() %>%
+  st_transform(prj) %>%
+  st_geometry() %>%
+  st_as_sf() %>%
+  st_union()
+
+
+grat_area <- st_as_sf(graticule(proj = prj, tiles=T)) %>%
+  st_make_valid() %>%
+  st_union()
+grat_area <-  st_multipolygon(lapply(grat_area, function(x) x[1])) %>%st_geometry() %>%
+  st_as_sf(crs=prj)
+
+plot(grat_area, col='red')
+plot(st_geometry(grat), add=T)
+
+grat_mask <- st_difference(st_buffer(grat_area, 1e10), grat_area) %>%
+  st_as_sf()
+
+set_canvas_sf(grat_area)
+
+gebco <- topo_matrix(4e4,
+                     src = '/vsicurl/https://public.services.aad.gov.au/datasets/science/GEBCO_2019_GEOTIFF/GEBCO_2019.tif',
+                     # src='aws',
+                     resample = 'average',
+                     warp_options=c("SOURCE_EXTRA=360")#, "NUM_THREADS=ALL_CPUS",
+                                    # "SAMPLE_STEPS=60",
+                                    # "SAMPLE_GRID=YES")
+                     )
+
+
+```
+
+``` {r hexPlot, echo=FALSE,results='hide',fig.keep='all'}
+biasTurbo <- function(bias, direction, n=256){
+  pal <- colorRampPalette(viridisLite::turbo(n, direction=direction), bias=bias)
+  return(pal(n))
+}
+
+bathypal <- scico(256, palette = 'oslo')
+bathy_hs = height_shade(gebco, texture = bathypal)
+
+diamonMap <- gebco %>%
+  height_shade(texture = scico(512, palette = 'vikO', direction=1))%>%
+  add_overlay(generate_altitude_overlay(bathy_hs, gebco, 0, 0), alphalayer = 1)  %>%
+  add_shadow(ray_shade(gebco,zscale=2e4*1e-2, sun_angle=10, multicore = T),0) %>%
+  add_shadow(texture_shade(gebco, detail = 0.8, contrast=5, brightness=10),0) %>%
+  add_overlay(generate_line_overlay(grat, canvasExent(),gebco, color = 'grey90'), rescale_original = T, alphalayer = 0.9) %>%
+  add_overlay(generate_polygon_overlay(grat_mask, canvasExent(),gebco, palette = 'black', linecolor = 'grey90'), rescale_original = T)
+
+plot_3d(diamonMap, gebco, zscale=4e4, baseshape='hex', windowsize = 800,
+        theta = 0,
+        phi = 89,
+        fov = 0,
+        zoom = 0.65)
+
+render_depth(title_text = "raytrix",
+                             title_font = 'Megrim',
+                             title_offset = c(200, 80),
+                             title_color = 'grey90',
+                             title_size = 120,
+             fstop = 1,
+             focallength = 60,
+             bokehshape='hex',
+             zscale =1*1e-1)
+
+```
+
+```{r include = FALSE}
+rgl::rgl.close()
+```
