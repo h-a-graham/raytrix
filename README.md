@@ -36,7 +36,7 @@ get_canvas(). An Extent object can be produced and be used with
     get_canvas()  # retrieves the extent and crs parameters if required for additional steps... - Done
     canvasExtent() # get an object of class Extent for using in other {rayshader} functions - Done
 
-**Data:** Now you can use {aytrix} to warp raster data from online or
+**Data:** Now you can use {raytrix} to warp raster data from online or
 on-disk sources using the awesome
 [{vapour}](https://hypertidy.github.io/vapour/) package. These functions
 enable the retrieval of topographic (or other single band raster) and
@@ -60,21 +60,24 @@ set_canvas_centroid(.lat, .long, radius = 7000)
 get_canvas()$extent
 
 tc <- topo_matrix(25, src='aws')
-ov <- map_drape(5, src='wms_virtualearth', alpha=0.4, resample = 'CubicSpline')
+ov <- map_drape(5, src='wms_virtualearth', resample = 'CubicSpline')
 
-texture <- tc %>%
-  sphere_shade(texture='imhof4')%>%
-  add_overlay(., ov,rescale_original=T) %>%
-  add_shadow(ray_shade(tc, zscale=7, sunangle=175, multicore = T), 0.5) %>%
+# plot without shading
+plot_3d(ov, tc, zscale=25*0.75,  windowsize = 1000,
+        theta=150, phi=25, zoom=0.7, fov=50)
+render_snapshot()
+rgl::rgl.close()
+# build in rayshader shading tools
+texture <- ov %>%
+  add_shadow(ray_shade(tc, zscale=25*0.75, sunangle=30, sunaltitude= 25,
+                       multicore = T), 0.05) %>%
   add_shadow(texture_shade(tc, detail=0.8, contrast = 10, brightness = 15),0)
+
 plot_3d(texture, tc, zscale=25*0.75,  windowsize = 1000,
         theta=150, phi=25, zoom=0.7, fov=50)
 
 render_snapshot()
-```
-
-![](man/figures/MtStHelens-1.png)<!-- -->
-
-``` r
 rgl::rgl.close()
 ```
+
+<img src="man/figures/MtStHelens-1.png" style="display: block; margin: auto;" /><img src="man/figures/MtStHelens-2.png" style="display: block; margin: auto;" />
