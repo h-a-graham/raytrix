@@ -47,7 +47,14 @@ i.e. matrix for the `topo_matrix` and 4 dimensional array for the
     topo_matrix(res, src='aws', ...)  
     map_drape(res, src='esri.aerial', alpha=1 ...) # many options now available here - need to check in on API Key requirements.
 
-**Example**
+**Helplers:** Some additional helpers for easing interoperability with
+other spatial and plotting libraries (More to come here:
+
+    texture_to_brick() #  converts a rayshader texture to a raster with the correct extent and crs.
+
+**Examples**
+
+Simple map drape over a DEM.
 
 ``` r
 library(raytrix)
@@ -59,25 +66,37 @@ library(rayshader)
 set_canvas_centroid(.lat, .long, radius = 7000)
 get_canvas()$extent
 
-tc <- topo_matrix(25, src='aws')
-ov <- map_drape(5, src='wms_virtualearth', resample = 'CubicSpline')
+tc <- topo_matrix(20)
+ov <- map_drape(5)
 
-# plot without shading
 plot_3d(ov, tc, zscale=25*0.75,  windowsize = 1000,
-        theta=150, phi=25, zoom=0.7, fov=50)
+        theta=150, phi=45, zoom=0.7, fov=50)
 render_snapshot()
-rgl::rgl.close()
-# build in rayshader shading tools
-texture <- ov %>%
-  add_shadow(ray_shade(tc, zscale=25*0.75, sunangle=30, sunaltitude= 25,
-                       multicore = T), 0.05) %>%
-  add_shadow(texture_shade(tc, detail=0.8, contrast = 10, brightness = 15),0)
+```
 
-plot_3d(texture, tc, zscale=25*0.75,  windowsize = 1000,
-        theta=150, phi=25, zoom=0.7, fov=50)
+![](man/figures/MtStHelens-1.png)<!-- -->
 
-render_snapshot()
+``` r
 rgl::rgl.close()
 ```
 
-<img src="man/figures/MtStHelens-1.png" style="display: block; margin: auto;" /><img src="man/figures/MtStHelens-2.png" style="display: block; margin: auto;" />
+Add some shading to the scene with {rayshader}
+
+``` r
+# build in rayshader shading tools
+texture <- ov%>%
+  add_shadow(ray_shade(tc, zscale=20*0.75, sunangle=700, sunaltitude= 30,
+                       multicore = T), 0) %>%
+  add_shadow(texture_shade(tc, detail=0.6, contrast = 5, brightness = 10),0)
+
+plot_3d(texture, tc, zscale=25*0.75,  windowsize = 1000,
+        theta=150, phi=45, zoom=0.7, fov=50)
+
+render_snapshot()
+```
+
+![](man/figures/MtStHelensShade-1.png)<!-- -->
+
+``` r
+rgl::rgl.close()
+```

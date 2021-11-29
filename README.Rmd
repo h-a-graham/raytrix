@@ -74,7 +74,7 @@ diamonMap <- gebco %>%
   height_shade(texture = scico(512, palette = 'vikO', direction=1))%>%
   add_overlay(generate_altitude_overlay(bathy_hs, gebco, 0, 0), alphalayer = 1)  %>%
   add_shadow(ray_shade(gebco,zscale=1e4*1e-2, sun_angle=10, multicore = T),0) %>%
-  add_shadow(texture_shade(gebco, detail = 0.8, contrast=5, brightness=10),0) %>%
+  add_shadow(texture_shade(gebco, detail = 0.3, contrast=5, brightness=10),0) %>%
   add_overlay(generate_line_overlay(grat, canvasExent(),gebco, color = 'grey90'), rescale_original = T, alphalayer = 0.9) 
 
 plot_3d(diamonMap, gebco, zscale=2e4, baseshape='hex', windowsize = 1000,
@@ -145,10 +145,19 @@ topo_matrix(res, src='aws', ...)
 map_drape(res, src='esri.aerial', alpha=1 ...) # many options now available here - need to check in on API Key requirements.
 ```
 
+**Helplers:**
+Some additional helpers for easing interoperability with other spatial and 
+plotting libraries (More to come here:
 
-**Example**
+```
+texture_to_brick() #  converts a rayshader texture to a raster with the correct extent and crs.
+```
 
-```{r MtStHelens, message=FALSE, warning=FALSE, results='hide', fig.align='center', fig.show='hold'}
+**Examples**
+
+Simple map drape over a DEM.
+
+```{r MtStHelens, message=FALSE, warning=FALSE, results='hide'}
 library(raytrix)
 library(rayshader)
 
@@ -158,24 +167,31 @@ library(rayshader)
 set_canvas_centroid(.lat, .long, radius = 7000)
 get_canvas()$extent
 
-tc <- topo_matrix(25, src='aws')
-ov <- map_drape(5, src='wms_virtualearth', resample = 'CubicSpline')
+tc <- topo_matrix(20)
+ov <- map_drape(5)
 
-# plot without shading
 plot_3d(ov, tc, zscale=25*0.75,  windowsize = 1000,
-        theta=150, phi=25, zoom=0.7, fov=50)
+        theta=150, phi=45, zoom=0.7, fov=50)
 render_snapshot()
+
 rgl::rgl.close()
+
+```
+
+Add some shading to the scene with {rayshader}
+
+```{r MtStHelensShade, message=FALSE, warning=FALSE, results='hide'}
 # build in rayshader shading tools
-texture <- ov %>%
-  add_shadow(ray_shade(tc, zscale=25*0.75, sunangle=30, sunaltitude= 25,
-                       multicore = T), 0.05) %>%
-  add_shadow(texture_shade(tc, detail=0.8, contrast = 10, brightness = 15),0)
+texture <- ov%>%
+  add_shadow(ray_shade(tc, zscale=20*0.75, sunangle=700, sunaltitude= 30,
+                       multicore = T), 0) %>%
+  add_shadow(texture_shade(tc, detail=0.6, contrast = 5, brightness = 10),0)
 
 plot_3d(texture, tc, zscale=25*0.75,  windowsize = 1000,
-        theta=150, phi=25, zoom=0.7, fov=50)
+        theta=150, phi=45, zoom=0.7, fov=50)
 
 render_snapshot()
+
 rgl::rgl.close()
 ```
 
