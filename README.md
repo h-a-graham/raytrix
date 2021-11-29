@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------
 
-# Raytrix
+# raytrix
 
 A {rayshader} plugin providing a spatial framework and convenience
 functions for accessing spatial data. This is similar to and may replace
