@@ -1,10 +1,16 @@
 ------------------------------------------------------------------------
 
+<!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/h-a-graham/raytrix/branch/main/graph/badge.svg)](https://codecov.io/gh/h-a-graham/raytrix?branch=main)
+<!-- badges: end -->
+
 # raytrix
 
 A {rayshader} plugin providing a spatial framework and convenience
 functions for accessing spatial data. This is similar to and may replace
-[{ryavista}](https://github.com/h-a-graham/rayvista). But things are
+[{ravista}](https://github.com/h-a-graham/rayvista). But things are
 still very much under development.
 
 ![](man/figures/hexData-1.png)<!-- -->
