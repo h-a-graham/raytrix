@@ -13,7 +13,7 @@ functions for accessing spatial data. This is similar to and may replace
 [{ravista}](https://github.com/h-a-graham/rayvista). But things are
 still very much under development.
 
-[<img src="inst/hex/HexRayRender10B.png" width="50%">](inst/hex/HexRayRender10B.R)
+[<img src="inst/hex/HexRayRender10B.png" width="50%">](https://github.com/h-a-graham/raytrix/blob/main/inst/hex/raytrix_hex.R)
 
 ### Quick Introduction
 
