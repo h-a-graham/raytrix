@@ -11,3 +11,6 @@ dev_tests/
 #code coverage script
 
 tests/code_cover.R
+
+# junk from hex
+inst/hex/cache/
