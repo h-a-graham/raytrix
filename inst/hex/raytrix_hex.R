@@ -63,26 +63,30 @@ save_obj(filename = 'inst/hex/HexRayRender3.obj')
 
 # render with rayrender
 scene <- generate_ground(depth=-10, material = diffuse(checkercolor="grey50")) %>%
-  add_object(obj_model('inst/hex/HexRayRender3.obj', texture = T)) %>%
-  add_object(sphere(x=-10,y=300,z=-240,radius=25,material=light(color = '#FFA271',
-                                                                 intensity = 50)))
+  add_object(obj_model('inst/hex/cache/HexRayRender3.obj', texture = T)) %>%
+  add_object(sphere(x=239.5,y=80,z=157.5,radius=10,material=light(color = '#FFA271',
+                                                                intensity = 900,
+                                                               spotlight_focus= c(-100,0,-100),
+                                                               spotlight_width=100))) %>%
+  add_object(sphere(x=236,y=110,z=155,radius=9,material=light(color = '#FFA271',
+                                                               intensity = 10)))
 
-render_scene(filename = 'inst/hex/HexRayRender10.png',scene,
-             parallel=TRUE,samples=100, lookfrom=c(-1,2200,0),
+
+render_scene(scene,
+             filename = 'inst/hex/cache/HexRayRender10.png',
+             parallel=TRUE,
+             samples=200,
+             lookfrom=c(-1,2200,0),
              width = 1000,
-             height = 1000)
+             height = 1000,
+             )
 
-add_title('inst/hex/HexRayRender10.png',
+add_title('inst/hex/cache/HexRayRender10.png',
           title_text = "raytrix",
                        title_font = 'Megrim',
-                       title_offset = c(205, 125),
+                       title_offset = c(170, 140),
                        title_color = 'grey80',
-                       title_size = 180,
+                       title_size = 200,
           filename = 'inst/hex/HexRayRender10A.png')
-
-
-add_vignette('inst/hex/HexRayRender10A.png',
-             filename = 'inst/hex/HexRayRender10B.png')
-
 
 

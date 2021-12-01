@@ -8,12 +8,14 @@ coverage](https://codecov.io/gh/h-a-graham/raytrix/branch/main/graph/badge.svg)]
 
 # raytrix
 
+<p align="center">
+<img src="man/figures/raytrixHEX_edit.png" width="30%" />
+</p>
+
 A {rayshader} plugin providing a spatial framework and convenience
 functions for accessing spatial data. This is similar to and may replace
 [{ravista}](https://github.com/h-a-graham/rayvista). But things are
 still very much under development.
-
-[<img src="inst/hex/HexRayRender10B.png" width="50%">](https://github.com/h-a-graham/raytrix/blob/main/inst/hex/raytrix_hex.R)
 
 ### Quick Introduction
 
