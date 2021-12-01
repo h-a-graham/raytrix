@@ -9,7 +9,7 @@ coverage](https://codecov.io/gh/h-a-graham/raytrix/branch/main/graph/badge.svg)]
 # raytrix
 
 <p align="center">
-<img src="man/figures/raytrixHEX_edit.png" width="30%" />
+<img src="man/figures/raytrixHEX_editLR.png" width="40%" />
 </p>
 
 A {rayshader} plugin providing a spatial framework and convenience
