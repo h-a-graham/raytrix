@@ -18,8 +18,8 @@ is.cartesian <- function(x){
   if (!sf::st_is_longlat(x)) {
     return(TRUE)
   } else {
-    warning(paste0("Canvas projection is not cartesian. This probably doesn't matter",
-                   "Be careful of the units you use to specify `res`"))
+    warning(paste0("Canvas projection is not cartesian.",
+                   "Be careful of the units you use to specify `res`!"))
     return(FALSE)
   }
 
@@ -105,10 +105,23 @@ set_canvas <- function(bounds, projection){
 #' @name raytrix_set_canvas
 #'
 #' @export
-set_canvas_world <- function() {
-  set_project_canvas(list(extent = c(-180, 180,
-                                     -90, 90),
-                          projection = "+proj=longlat +datum=WGS84"))
+set_canvas_world <- function(projection="+proj=longlat +datum=WGS84") {
+  if (projection=="+proj=longlat +datum=WGS84"){
+    set_project_canvas(list(extent = c(-180, 180,
+                                       -90, 90),
+                            projection = "+proj=longlat +datum=WGS84"))
+  } else {
+
+    grat_area <- sf::st_as_sf(graticule::graticule(proj = projection, tiles=T)) %>%
+      sf::st_make_valid() %>%
+      sf::st_union()
+    grat_area <-  sf::st_multipolygon(lapply(grat_area, function(x) x[1])) %>%
+      sf::st_geometry() %>%
+      sf::st_as_sf(crs=projection)
+
+    set_canvas_sf(grat_area)
+  }
+
 
 }
 

@@ -14,3 +14,5 @@ tests/code_cover.R
 
 # junk from hex
 inst/hex/cache/
+
+README_cache/

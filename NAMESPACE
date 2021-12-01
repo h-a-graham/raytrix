@@ -2,12 +2,10 @@
 
 export("%>%")
 export(canvasExent)
-export(custom_matrix)
 export(get_canvas)
 export(heightmap_to_raster)
 export(map_drape)
 export(map_sources)
-export(rtrix_data)
 export(set_canvas)
 export(set_canvas_centroid)
 export(set_canvas_raster)

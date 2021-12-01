@@ -13,7 +13,7 @@
 \usage{
 set_canvas(bounds, projection)
 
-set_canvas_world()
+set_canvas_world(projection = "+proj=longlat +datum=WGS84")
 
 set_canvas_sf(.sf, mask = F)
 

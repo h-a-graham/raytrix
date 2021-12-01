@@ -4,9 +4,9 @@
 #' This function is taken from {gdalio} https://github.com/hypertidy/gdalio/blob/main/R/gdalio.R
 #'
 #' @param res The desired cell resolution of the matrix in canvas CRS units.
-#' @param src Default is 'aws'. The server from which to download topographic
-#' data.
-#' @export
+#' @param src The server from which to download topographic or map data. See details:
+#' @details
+#' #' See https://github.com/hypertidy/gdalio and https://gdal.org/drivers/raster/wms.html for examples of custom sources from the web. Alternatively, you can download a file and specify the local path.
 rtrix_data <- function(dsn, res, resample, ..., bands = 1L) {
   g <- get_canvas(res)
 

@@ -10,9 +10,13 @@ topo_matrix(res, src = "aws", resample = "CubicSpline", ...)
 \item{res}{The desired cell resolution of the matrix in canvas CRS units.}
 
 \item{src}{Default is 'aws'. The server from which to download topographic
-data.}
+data. Use \code{raytrix::topo_sources()} to view available sources (via {toppgraphy}).
+See details.}
 }
 \description{
 retrieve a topographical matrix for the canvas region. Set the resolution
 of the cell size and the elevation source.
+}
+\details{
+See https://github.com/hypertidy/gdalio and https://gdal.org/drivers/raster/wms.html for examples of custom sources from the web. Alternatively, you can download a file and specify the local path.
 }

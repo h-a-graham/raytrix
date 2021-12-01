@@ -9,12 +9,15 @@ map_drape(res, src = "wms_virtualearth", alpha = 1, resample = "Average", ...)
 \arguments{
 \item{res}{The desired cell resolution of the matrix in canvas CRS units.}
 
-\item{src}{Default is 'aws'. The server from which to download topographic.}
+\item{src}{Default is 'wms_virtualearth'. The server from which to download map data.
+use \code{raytrix::map_sources()} to see available built in sources (provided by {gdalwebsrv})
+or provide your own source. See details...}
 
-\item{alpha}{default 1, set transparency of overlay
-data.}
+\item{alpha}{default 1, set transparency of overlay data.}
 }
 \description{
-retrieve a map matrix for the canvas region. Set the resolution
-of the cell size and the elevation source.
+retrieve a 3 dimensional (RGB or other) array for the canvas region.
+}
+\details{
+See https://github.com/hypertidy/gdalio and https://gdal.org/drivers/raster/wms.html for examples of custom sources from the web. Alternatively, you can download a file and specify the local path.
 }
