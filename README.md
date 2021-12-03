@@ -24,15 +24,15 @@ still very much under development.
     devtools::install_github('h-a-graham/raytrix')
 
 **Project Canvas:** with {raytrix} we must first set out a strict
-geospatial region which define the bounds of the area to be mapped; This
-is referred to as the canvas. This can be achieved by direct input or
-with a spatial oject (currently sf and RasterLayer, RasterBrick). global
-values are set of extent and projections which can be viewed with
+geospatial region which defines the bounds of the area to be mapped;
+This is referred to as the canvas. This can be achieved by direct input
+or with a spatial oject (currently sf and RasterLayer, RasterBrick).
+global values are set of extent and projections which can be viewed with
 get_canvas(). An Extent object can be produced and be used with
 {rayshader} functions such as `generate_overlay`.
 
     set_canvas(xmin, ymin, xmax, ymax, crs)  # basic argument for setting canvas - Done
-    set_canvas_raster(raster/terra/stars)  # set canvas from a raster data class - Not Done
+    set_canvas_raster(rasterLayer)  # set canvas from a raster data class - Done
     set_canvas_sf(sf/sfc, mask = FALSE)  # set canvas from an sf/sfc object - Done
     set_canvas_centroid(long, lat, radius, crs=4326)  # set canvas from cetroid and radius - Done (although will probably change)
     get_canvas()  # retrieves the extent and crs parameters if required for additional steps... - Done
@@ -73,14 +73,10 @@ ov <- map_drape(5)
 
 plot_3d(ov, tc, zscale=25*0.75,  windowsize = 1000,
         theta=150, phi=45, zoom=0.7, fov=50)
-render_snapshot()
+render_snapshot(clear=TRUE)
 ```
 
 ![](man/figures/MtStHelens-1.png)<!-- -->
-
-``` r
-rgl::rgl.close()
-```
 
 Add some shading to the scene with {rayshader}
 
@@ -94,11 +90,7 @@ texture <- ov%>%
 plot_3d(texture, tc, zscale=25*0.75,  windowsize = 1000,
         theta=150, phi=45, zoom=0.7, fov=50)
 
-render_snapshot()
+render_snapshot(clear=TRUE)
 ```
 
 ![](man/figures/MtStHelensShade-1.png)<!-- -->
-
-``` r
-rgl::rgl.close()
-```

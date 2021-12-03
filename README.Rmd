@@ -100,9 +100,7 @@ ov <- map_drape(5)
 
 plot_3d(ov, tc, zscale=25*0.75,  windowsize = 1000,
         theta=150, phi=45, zoom=0.7, fov=50)
-render_snapshot()
-
-rgl::rgl.close()
+render_snapshot(clear=TRUE)
 
 ```
 
@@ -118,8 +116,7 @@ texture <- ov%>%
 plot_3d(texture, tc, zscale=25*0.75,  windowsize = 1000,
         theta=150, phi=45, zoom=0.7, fov=50)
 
-render_snapshot()
+render_snapshot(clear=TRUE)
 
-rgl::rgl.close()
 ```
 
