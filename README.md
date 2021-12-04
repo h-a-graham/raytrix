@@ -47,7 +47,7 @@ i.e. matrix for the `topo_matrix` and 4 dimensional array for the
 `map_drape` (4th dim being alpha).
 
     topo_matrix(res, src='aws', ...)  
-    map_drape(res, src='esri.aerial', alpha=1 ...) # many options now available here - need to check in on API Key requirements.
+    map_drape(res, src='wms_virtualearth', alpha=1 ...) # many options now available here - need to check in on API Key requirements.
 
 **Helplers:** Some additional helpers for easing interoperability with
 other spatial and plotting libraries (More to come here:
