@@ -1,4 +1,5 @@
-------------------------------------------------------------------------
+raytrix
+================
 
 <!-- badges: start -->
 
@@ -6,16 +7,14 @@
 coverage](https://codecov.io/gh/h-a-graham/raytrix/branch/main/graph/badge.svg)](https://codecov.io/gh/h-a-graham/raytrix?branch=main)
 <!-- badges: end -->
 
-# raytrix
-
 <p align="center">
 <img src="man/figures/raytrixHEX_editLR.png" width="40%" />
 </p>
 
-A [{rayshader}](https://www.rayshader.com/index.html) plugin providing a spatial 
-framework and convenience functions for accessing spatial data. This is similar 
-to and may replace [{ravista}](https://github.com/h-a-graham/rayvista). But 
-things are still very much under development.
+A {rayshader} plugin providing a spatial framework and convenience
+functions for accessing spatial data. This is similar to and may replace
+[{ravista}](https://github.com/h-a-graham/rayvista). But things are
+still very much under development.
 
 ### Quick Introduction
 
@@ -47,7 +46,7 @@ i.e. matrix for the `topo_matrix` and 4 dimensional array for the
 `map_drape` (4th dim being alpha).
 
     topo_matrix(res, src='aws', ...)  
-    map_drape(res, src='wms_virtualearth', alpha=1 ...) # many options now available here - need to check in on API Key requirements.
+    map_drape(res, src='esri.aerial', alpha=1 ...) # many options now available here - need to check in on API Key requirements.
 
 **Helplers:** Some additional helpers for easing interoperability with
 other spatial and plotting libraries (More to come here:

@@ -1,4 +1,5 @@
 ---
+title: raytrix
 output: 
   github_document:
     fig_width: 7.5
@@ -8,8 +9,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-
-------------
 ```{r setup, include = FALSE}
 library(knitr)
 library(rgl)
@@ -24,8 +23,7 @@ set.seed(1001)
 [![Codecov test coverage](https://codecov.io/gh/h-a-graham/raytrix/branch/main/graph/badge.svg)](https://codecov.io/gh/h-a-graham/raytrix?branch=main)
 <!-- badges: end -->
 
-raytrix
-=========================================================
+
 <p align="center">
 <img src="man/figures/raytrixHEX_editLR.png" width="40%" />
 </p>
