@@ -100,15 +100,15 @@ prj <- "+proj=adams_ws2"
 set_canvas_world(projection = prj)
 # get_canvas(3e4) # check canvas resolution with this in case your being ambitious...
 
-tm <- topo_matrix(2e4)
+tm <- topo_matrix(3e4)
 grats <- sf::st_as_sf(graticule::graticule(proj = prj, tiles=T)) # get graticule
 
 tm %>%
-  height_shade(gray.colors(256)) %>%
-  add_shadow(lamb_shade(tm)) %>%
-  add_overlay(generate_polygon_overlay(grats, canvasExent(),tm, linecolor="grey40",
-                                       palette = NA)) %>%
-  plot_map(title_text = 'Adams World in a Square II')
+  height_shade(heat.colors(256)) %>%
+  add_shadow(lamb_shade(tm, sunaltitude=25, zscale=0.8)) %>%
+  add_overlay(generate_polygon_overlay(grats, canvasExent(),tm, 
+                                       linecolor="#900C3F", palette = NA),  alphalayer = 0.7) %>%
+  plot_map(title_text = 'Adams World in a Square II', title_color='#900C3F')
 ```
 
-![](man/figures/AdamsWorld-1.png)<!-- -->
+<img src="man/figures/AdamsWorld-1.png" width="800" />
