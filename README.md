@@ -11,8 +11,9 @@ coverage](https://codecov.io/gh/h-a-graham/raytrix/branch/main/graph/badge.svg)]
 <img src="man/figures/raytrixHEX_editLR.png" width="40%" />
 </p>
 
-A {rayshader} plugin providing a spatial framework and convenience
-functions for accessing spatial data. This is similar to and may replace
+A [{rayshader}](https://www.rayshader.com/index.html) plugin providing a
+spatial framework and convenience functions for accessing spatial data.
+This is similar to and may replace
 [{ravista}](https://github.com/h-a-graham/rayvista). But things are
 still very much under development.
 
@@ -70,7 +71,7 @@ get_canvas()$extent
 tc <- topo_matrix(20)
 ov <- map_drape(5)
 
-plot_3d(ov, tc, zscale=25*0.75,  windowsize = 1000,
+plot_3d(ov, tc, zscale=20*0.75,  windowsize = 1000,
         theta=150, phi=45, zoom=0.7, fov=50)
 render_snapshot(clear=TRUE)
 ```
@@ -81,13 +82,11 @@ Add some shading to the scene with {rayshader}
 
 ``` r
 # build in rayshader shading tools
-texture <- ov%>%
-  add_shadow(ray_shade(tc, zscale=20*0.75, sunangle=700, sunaltitude= 30,
-                       multicore = T), 0) %>%
-  add_shadow(texture_shade(tc, detail=0.6, contrast = 5, brightness = 10),0)
-
-plot_3d(texture, tc, zscale=25*0.75,  windowsize = 1000,
-        theta=150, phi=45, zoom=0.7, fov=50)
+ov %>%
+  add_shadow(., ray_shade(tc, zscale=20*0.75, 
+                          sunangle=700, sunaltitude= 30), 0) %>% 
+  plot_3d(., tc, zscale=20*0.75,  windowsize = 1000,
+          theta=150, phi=45, zoom=0.7, fov=50)
 
 render_snapshot(clear=TRUE)
 ```
