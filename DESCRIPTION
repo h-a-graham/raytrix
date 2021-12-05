@@ -25,7 +25,8 @@ Imports:
   gdalwebsrv,
   topography,
   scales,
-  methods
+  methods,
+  graticule
 Depends: 
     R (>= 3.5.0)
 Suggests: 

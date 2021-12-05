@@ -84,7 +84,7 @@ Add some shading to the scene with {rayshader}
 # build in rayshader shading tools
 ov %>%
   add_shadow(., ray_shade(tc, zscale=20*0.75, 
-                          sunangle=700, sunaltitude= 30), 0) %>% 
+                          sunangle=70, sunaltitude= 30), 0) %>% 
   plot_3d(., tc, zscale=20*0.75,  windowsize = 1000,
           theta=150, phi=45, zoom=0.7, fov=50)
 
@@ -92,3 +92,23 @@ render_snapshot(clear=TRUE)
 ```
 
 ![](man/figures/MtStHelensShade-1.png)<!-- -->
+
+Global hill shade using the Adams World in a Square II projection.
+
+``` r
+prj <- "+proj=adams_ws2"
+set_canvas_world(projection = prj)
+# get_canvas(3e4) # check canvas resolution with this in case your being ambitious...
+
+tm <- topo_matrix(2e4)
+grats <- sf::st_as_sf(graticule::graticule(proj = prj, tiles=T)) # get graticule
+
+tm %>%
+  height_shade(gray.colors(256)) %>%
+  add_shadow(lamb_shade(tm)) %>%
+  add_overlay(generate_polygon_overlay(grats, canvasExent(),tm, linecolor="grey40",
+                                       palette = NA)) %>%
+  plot_map(title_text = 'Adams World in a Square II')
+```
+
+![](man/figures/AdamsWorld-1.png)<!-- -->
