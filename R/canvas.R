@@ -83,7 +83,7 @@ set_project_canvas <- function(x){
 #' set_canvas_sf(nc)
 #' get_canvas(7e-3)
 #'
-#' canvas_extent()
+#' canvasExent()
 #'
 #' @export
 set_canvas <- function(bounds, projection){

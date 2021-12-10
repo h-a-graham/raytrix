@@ -1,5 +1,5 @@
 Package: raytrix
-Title: What the Package Does (One Line, Title Case)
+Title: A {rayshader} plugin providing a spatial framework for retrieving and visualising geospatial data.
 Version: 0.0.1
 Authors@R: 
     person(given = "Hugh",

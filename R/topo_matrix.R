@@ -12,7 +12,7 @@
 #' See https://github.com/hypertidy/gdalio and https://gdal.org/drivers/raster/wms.html for examples of custom sources from the web. Alternatively, you can download a file and specify the local path.
 
 #' @export
-topo_matrix <- function(res, src='aws', resample='CubicSpline', ...) {
+topo_matrix <- function(res, src='gebco', resample='CubicSpline', ...) {
 
     t_src <- get_topo_xml(src)
 
