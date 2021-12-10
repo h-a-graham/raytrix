@@ -13,6 +13,13 @@
 #' @export
 texture_to_brick <- function(texture){
 
+  # r <- raster::raster(raster::extent(get_canvas()$extent),
+  #                     nrows = dim(texture)[1],
+  #                     ncols = dim(texture)[2],
+  #                     crs = get_canvas()$projection)
+  #
+  # raster::brick(r, values = scales::rescale(texture, to = c(0, 255)))
+
   raster::brick(scales::rescale(texture, to = c(0, 255)),
                 xmn = get_canvas()$extent[1],
                 xmx = get_canvas()$extent[2],
@@ -34,12 +41,12 @@ texture_to_brick <- function(texture){
 #' @export
 heightmap_to_raster <- function(heightmap){
 
-  raster::raster(rotate(heightmap),
-                xmn = get_canvas()$extent[1],
-                xmx = get_canvas()$extent[2],
-                ymn = get_canvas()$extent[3],
-                ymx = get_canvas()$extent[4],
-                crs = get_canvas()$projection)
+  r <- raster::raster(raster::extent(get_canvas()$extent),
+                      nrows = dim(heightmap)[1],
+                      ncols = dim(heightmap)[2],
+                      crs = get_canvas()$projection)
+
+  raster::setValues(r, rotate(heightmap))
 }
 
 
