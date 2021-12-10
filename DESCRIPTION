@@ -36,3 +36,4 @@ Remotes:
     hypertidy/topography,
     hypertidy/gdalwebsrv
 Config/testthat/edition: 3
+URL: https://h-a-graham.github.io/raytrix/
