@@ -16,5 +16,5 @@ retrieve a raster using vapour::warp from a desired source.
 This function is taken from {gdalio} https://github.com/hypertidy/gdalio/blob/main/R/gdalio.R
 }
 \details{
-#' See https://github.com/hypertidy/gdalio and https://gdal.org/drivers/raster/wms.html for examples of custom sources from the web. Alternatively, you can download a file and specify the local path.
+See https://github.com/hypertidy/gdalio and https://gdal.org/drivers/raster/wms.html for examples of custom sources from the web. Alternatively, you can download a file and specify the local path.
 }

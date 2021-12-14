@@ -95,6 +95,6 @@ demo(nc, ask = FALSE, echo = FALSE)
 set_canvas_sf(nc)
 get_canvas(7e-3)
 
-canvas_extent()
+canvasExent()
 
 }

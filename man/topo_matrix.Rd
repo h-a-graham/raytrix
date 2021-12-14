@@ -4,12 +4,12 @@
 \alias{topo_matrix}
 \title{Get topography matrix}
 \usage{
-topo_matrix(res, src = "aws", resample = "CubicSpline", ...)
+topo_matrix(res, src = "gebco", resample = "CubicSpline", ...)
 }
 \arguments{
 \item{res}{The desired cell resolution of the matrix in canvas CRS units.}
 
-\item{src}{Default is 'aws'. The server from which to download topographic
+\item{src}{Default is 'gebco'. The server from which to download topographic
 data. Use \code{raytrix::topo_sources()} to view available sources (via {toppgraphy}).
 See details.}
 }

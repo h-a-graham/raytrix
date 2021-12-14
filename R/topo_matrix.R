@@ -5,7 +5,7 @@
 #' of the cell size and the elevation source.
 #'
 #' @param res The desired cell resolution of the matrix in canvas CRS units.
-#' @param src Default is 'aws'. The server from which to download topographic
+#' @param src Default is 'gebco'. The server from which to download topographic
 #' data. Use `raytrix::topo_sources()` to view available sources (via {toppgraphy}).
 #' See details.
 #' @details
