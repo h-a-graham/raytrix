@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 2.0.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-12-14T23:53Z
+last_built: 2021-12-15T09:15Z
 urls:
   reference: https://h-a-graham.github.io/raytrix/reference
   article: https://h-a-graham.github.io/raytrix/articles
