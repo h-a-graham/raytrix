@@ -1,4 +1,19 @@
+repo:
+  url:
+    home: https://github.com/h-a-graham/raytrix
 url: https://h-a-graham.github.io/raytrix/
 template:
   bootstrap: 5
+  bootswatch: superhero
+  theme: haddock
+  left:
+  - intro
+  - reference
+  - articles
+  - tutorials
+  - news
+  right:
+  - search
+  - github
+
 
