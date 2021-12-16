@@ -39,12 +39,19 @@ topo_matrix <- function(res, src='gebco', resample='CubicSpline', ...) {
 #' @export
 topo_sources <- function(){
   top_serv_tibble <- topography::topography_services()
-  top_serv_tibble$label
+  c(top_serv_tibble$label,
+    'aws')
 }
 
 get_topo_xml<- function(.src){
+
   if (.src %in% topo_sources()){
-    return(topography::topography_source(.src))
+    if (.src == 'aws'){
+      return(system.file("extdata", "aws_tiles.xml", package = "raytrix", mustWork = T))
+    } else {
+      return(topography::topography_source(.src))
+    }
+
   } else {
     warning('The requested topography data source is not available from {topography}.
          Assuming custom src has been supplied...')
