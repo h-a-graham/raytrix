@@ -25,7 +25,7 @@ plot_3d_mesh <- function(height_map, texture, zscale=0.2, lit=FALSE,
   # checks for height_map
   if (class(height_map)=="RasterLayer"){
     topo_raster <- height_map
-  } else is.matrix(height_map) {
+  } else if (is.matrix(height_map)) {
     topo_raster <- heightmap_to_raster(height_map)
   } else {
     stop(sprintf('class of %s is not supported for the height_map argument',
@@ -35,7 +35,7 @@ plot_3d_mesh <- function(height_map, texture, zscale=0.2, lit=FALSE,
   # checks for texture
   if (class(texture)=="RasterBrick"){
     texture_rgb <- texture
-  } else is.array(texture) {
+  } else if  (is.array(texture)) {
     texture_rgb <- texture_to_brick(texture)
   } else {
     stop(sprintf('class of %s is not supported for the texture argument',
