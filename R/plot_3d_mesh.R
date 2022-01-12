@@ -5,20 +5,44 @@
 #' THis should improve render times. However, this does not work out of the box
 #' with `render_highquality()`. FOr now things are a bit experimental.
 #'
-#' @param height_map a height map matrix generated with either `raytrix::topo_matrix()` or `rayshader::raster_to_matrix()`
+#' @param height_map a height map matrix generated with either `raytrix::topo_matrix()` or `rayshader::raster_to_matrix()`.
+#' OR you can also provide a 'RasterLayer' also...
 #' @param texture The output from a {rayshader} pipeline or output of `raytrix::map_drape()`
-#' @param zscale Numeric value controlling the aspect ratio of the scene. used by `rgl::aspect3d()` so it doesn't behave like rayshaders typical zscale arg,
+#' @param zscale Numeric value controlling the aspect ratio of the scene. used by `rgl::aspect3d()` so it doesn't behave like rayshader's typical zscale arg,
 #' @param lit Boolean, default FALSE. Do you want to light the mesh faces?
 #' @param ... Not currently used
 #'
 #' @export
 plot_3d_mesh <- function(height_map, texture, zscale=0.2, lit=FALSE,
                          windowsize=600, ...){
+  # check for anglr
+  if (!requireNamespace("anglr", quietly=TRUE)) {
+    stop('The plot_3d_mesh() function requires the anglr package.
+        Please install it with:
+       `install.packages("anglr")`')
+  }
 
-  topo_raster <- heightmap_to_raster(height_map)
+  # checks for height_map
+  if (class(height_map)=="RasterLayer"){
+    topo_raster <- height_map
+  } else is.matrix(height_map) {
+    topo_raster <- heightmap_to_raster(height_map)
+  } else {
+    stop(sprintf('class of %s is not supported for the height_map argument',
+                 class(height_map)))
+  }
 
-  texture_rgb <- texture_to_brick(texture)
+  # checks for texture
+  if (class(texture)=="RasterBrick"){
+    texture_rgb <- texture
+  } else is.array(texture) {
+    texture_rgb <- texture_to_brick(texture)
+  } else {
+    stop(sprintf('class of %s is not supported for the texture argument',
+                 class(texture)))
+  }
 
+  # generate 3d scene with anglr and rgl
   .mesh2 <- anglr::as.mesh3d(topo_raster, image_texture=texture_rgb, lit=lit)
   anglr::plot3d(.mesh2)
   rgl::aspect3d(x = 1, y = 1, z = zscale)
