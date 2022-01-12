@@ -12,11 +12,18 @@ rtrix_data <- function(dsn, res, resample, ..., bands = 1L) {
 
   if (utils::packageVersion("vapour") <= "0.8.0") {
     ## catch this old case, it keeps confusing me ...
-    out <-  vapour::vapour_warp_raster(dsn, extent = g$extent, dimension = g$dimension, wkt = g$projection, bands = bands, resample=resample,  ...)
+    out <-  vapour::vapour_warp_raster(dsn, extent = g$extent,
+                                       dimension = g$dimension,
+                                       wkt = g$projection, bands = bands,
+                                       resample=resample,  ...)
 
   } else {
-    out <- vapour::vapour_warp_raster(dsn, extent = g$extent, dimension = g$dimension, projection = g$projection, bands = bands, resample=resample, ...)
+    out <- vapour::vapour_warp_raster(dsn, extent = g$extent,
+                                      dimension = g$dimension,
+                                      projection = g$projection,
+                                      bands = bands,
+                                      resample=resample,
+                                      ...)
   }
   out
 }
-

@@ -46,7 +46,7 @@ heightmap_to_raster <- function(heightmap){
                       ncols = dim(heightmap)[2],
                       crs = get_canvas()$projection)
 
-  raster::setValues(r, rotate(heightmap))
+  raster::setValues(r, t(heightmap))
 }
 
 

@@ -4,9 +4,29 @@
 \alias{plot_3d_mesh}
 \title{plot texture over a 3d mesh}
 \usage{
-plot_3d_mesh(height_map, texture, zscale = 0.2, lit = F, windowsize = 600, ...)
+plot_3d_mesh(
+  height_map,
+  texture,
+  zscale = 0.2,
+  lit = FALSE,
+  windowsize = 600,
+  ...
+)
+}
+\arguments{
+\item{height_map}{a height map matrix generated with either \code{raytrix::topo_matrix()} or \code{rayshader::raster_to_matrix()}}
+
+\item{texture}{The output from a {rayshader} pipeline or output of \code{raytrix::map_drape()}}
+
+\item{zscale}{Numeric value controlling the aspect ratio of the scene. used by \code{rgl::aspect3d()} so it doesn't behave like rayshaders typical zscale arg,}
+
+\item{lit}{Boolean, default FALSE. Do you want to light the mesh faces?}
+
+\item{...}{Not currently used}
 }
 \description{
-This is an alternative to rayshader's \code{plot_3d} but rather than plotting the
-elevation as a matrix it converts
+This is an alternative  to rayshader's \code{plot_3d} but rather than plotting the
+elevation as a matrix it converts it to a mesh using {anglr}. For large scenes
+THis should improve render times. However, this does not work out of the box
+with \code{render_highquality()}. FOr now things are a bit experimental.
 }

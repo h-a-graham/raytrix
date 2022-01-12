@@ -12,17 +12,32 @@
 #' See https://github.com/hypertidy/gdalio and https://gdal.org/drivers/raster/wms.html for examples of custom sources from the web. Alternatively, you can download a file and specify the local path.
 
 #' @export
-topo_matrix <- function(res, src='gebco', resample='CubicSpline', ...) {
+topo_matrix <- function(res, src='gebco', resample='CubicSpline', out_type='matrix', ...) {
 
     t_src <- get_topo_xml(src)
 
-    v <- rtrix_data(t_src, res, resample, ...)
+    v <- rtrix_data(t_src, res, resample,
+                    band_output_type='Float64',
+                    ...)
     g <- get_canvas(res)
 
-    m <- matrix(v[[1]], g$dimension[1])[,g$dimension[2]:1, drop = F]
+    if (out_type=='matrix'){
+      m <- matrix(v[[1]], g$dimension[1])[,g$dimension[2]:1, drop = F]
+      m <- rotate(rotate(m)) %>%
+        apply(2,rev)
+      return(m)
+    } else if (out_type=='raster'){
+      r <- raster::raster(raster::extent(g$extent), nrows = g$dimension[2], ncols = g$dimension[1], crs = g$projection)
+      if (length(v) > 1) {
+        r <- raster::brick(replicate(length(v), r, simplify = FALSE))
+      }
+      r <- raster::setValues(r, do.call(cbind, v))
+      return(r)
+    }
 
-    rotate(rotate(m)) %>%
-      apply(2,rev)
+
+
+
 }
 
 
