@@ -48,6 +48,7 @@ plot_3d_mesh <- function(height_map, texture, zscale=0.2, lit=FALSE,
 
   # generate 3d scene with anglr and rgl
   .mesh2 <- anglr::as.mesh3d(topo_raster, image_texture=texture_rgb, lit=lit, ...)
+  # .mesh2
   anglr::plot3d(.mesh2)
   rgl::aspect3d(x = 1, y = 1, z = zscale)
   rgl::rgl.clear( type = "bbox" )

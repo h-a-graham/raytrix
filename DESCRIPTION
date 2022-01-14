@@ -31,7 +31,7 @@ Depends:
 Suggests: 
     testthat (>= 3.0.0),
     rgdal (>= 1.5-23),
-    covr
+    covr,
     anglr
 Remotes:
     hypertidy/topography,
