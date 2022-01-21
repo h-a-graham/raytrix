@@ -69,7 +69,7 @@ set_canvas_centroid(.lat, .long, radius = 7000)
 get_canvas()$extent
 
 tc <- topo_matrix(20)
-ov <- map_drape(5)
+ov <- map_drape(10)
 
 plot_3d(ov, tc, zscale=20*0.75,  windowsize = 1000,
         theta=150, phi=45, zoom=0.7, fov=50)
@@ -93,6 +93,30 @@ render_snapshot(clear=TRUE)
 
 ![](man/figures/MtStHelensShade-1.png)<!-- -->
 
+Blending layers by altitude…
+
+``` r
+ov_osm <- map_drape(20, src='wms_openstreetmap_tms')
+
+# scico::scico(5, palette = 'vikO')
+texture <- sphere_shade(tc, texture = create_texture("#4E193D", "#4474A0", "#D4BEB4", "#A24C2C", "#50193B")) %>%
+  add_shadow(ray_shade(tc, zscale=20*0.75, sunangle=95, sunaltitude= 30,
+                       multicore = T), 0) %>%
+  add_shadow(texture_shade(tc, detail=0.9, contrast = 5, brightness = 10),0) %>%
+  add_overlay(generate_altitude_overlay(ov_osm, tc, start_transition=max(tc)*0.8,
+                                        end_transition = max(tc)*0.2)) %>%
+  add_overlay(generate_altitude_overlay(ov, tc, start_transition=max(tc)*0.99,
+                                        end_transition = max(tc)*0.72), rescale_original = T)
+
+plot_3d(texture, tc, triangulate = T, solid = FALSE, 
+        zscale=20*0.75,  windowsize = 1000,
+          theta=150, phi=45, zoom=0.7, fov=50)
+
+render_depth(focallength = 200, clear = TRUE)
+```
+
+![](man/figures/MtStHelensBlending-1.png)<!-- -->
+
 Global hill shade using the Adams World in a Square II projection.
 
 ``` r
@@ -108,7 +132,7 @@ tm %>%
   add_shadow(lamb_shade(tm, sunaltitude=25, zscale=0.8)) %>%
   add_overlay(generate_polygon_overlay(grats, canvasExent(),tm, 
                                        linecolor="#900C3F", palette = NA),  alphalayer = 0.7) %>%
-  plot_map(title_text = 'Adams World in a Square II', title_color='#900C3F')
+  plot_map(title_text = 'Adams World in a Square II', title_color='grey80')
 ```
 
 <img src="man/figures/AdamsWorld-1.png" width="800" />
