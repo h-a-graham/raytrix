@@ -54,9 +54,7 @@ other spatial and plotting libraries (More to come here:
 
     texture_to_brick() #  converts a rayshader texture to a raster with the correct extent and crs.
 
-**Examples**
-
-Simple map drape over a DEM.
+**Examples** set canvas and get data
 
 ``` r
 library(raytrix)
@@ -66,12 +64,28 @@ library(rayshader)
 .lat <- 46.200732
 .long <- -122.187082
 set_canvas_centroid(.lat, .long, radius = 7000)
+```
+
+    ## Warning in set_canvas_centroid(.lat, .long, radius = 7000):
+    ## `set_canvas_centroid() `converts coordinates to web mercator for convnience.to
+    ## set a specific canvas extent and projection use `set_canvas()`
+
+``` r
 get_canvas()$extent
+```
 
-tc <- topo_matrix(20)
+    ##      xmin      xmax      ymin      ymax 
+    ## -13608804 -13594804   5805575   5819575
+
+``` r
+tc <- topo_matrix(20, src='aws')
 ov <- map_drape(10)
+```
 
-plot_3d(ov, tc, zscale=20*0.75,  windowsize = 1000,
+Simple map drape over a DEM.
+
+``` r
+plot_3d(ov, tc, zscale=20*0.75,  triangulate = T, windowsize = 1000,
         theta=150, phi=45, zoom=0.7, fov=50)
 render_snapshot(clear=TRUE)
 ```
@@ -85,7 +99,7 @@ Add some shading to the scene with {rayshader}
 ov %>%
   add_shadow(., ray_shade(tc, zscale=20*0.75, 
                           sunangle=70, sunaltitude= 30), 0) %>% 
-  plot_3d(., tc, zscale=20*0.75,  windowsize = 1000,
+  plot_3d(., tc, zscale=20*0.75,  triangulate = T, windowsize = 1000,
           theta=150, phi=45, zoom=0.7, fov=50)
 
 render_snapshot(clear=TRUE)
@@ -107,7 +121,6 @@ texture <- sphere_shade(tc, texture = create_texture("#4E193D", "#4474A0", "#D4B
                                         end_transition = max(tc)*0.2)) %>%
   add_overlay(generate_altitude_overlay(ov, tc, start_transition=max(tc)*0.99,
                                         end_transition = max(tc)*0.72), rescale_original = T)
-
 plot_3d(texture, tc, triangulate = T, solid = FALSE, 
         zscale=20*0.75,  windowsize = 1000,
           theta=150, phi=45, zoom=0.7, fov=50)

@@ -15,7 +15,8 @@ library(rgl)
 knit_hooks$set(rgl = hook_rgl)
 knitr::opts_chunk$set(
   fig.path = "man/figures/",
-  cache = TRUE
+  cache = TRUE,
+  dev = "ragg_png"
 )
 set.seed(1001)
 ```
@@ -79,10 +80,9 @@ texture_to_brick() #  converts a rayshader texture to a raster with the correct 
 ```
 
 **Examples**
+set canvas and get data
 
-Simple map drape over a DEM.
-
-```{r MtStHelens, message=FALSE, warning=FALSE, results='hide'}
+```{r set canvas, cache=F}
 library(raytrix)
 library(rayshader)
 
@@ -92,10 +92,16 @@ library(rayshader)
 set_canvas_centroid(.lat, .long, radius = 7000)
 get_canvas()$extent
 
-tc <- topo_matrix(20)
+tc <- topo_matrix(20, src='aws')
 ov <- map_drape(10)
+```
 
-plot_3d(ov, tc, zscale=20*0.75,  windowsize = 1000,
+
+Simple map drape over a DEM.
+
+```{r MtStHelens, message=FALSE, warning=FALSE, results='hide'}
+
+plot_3d(ov, tc, zscale=20*0.75,  triangulate = T, windowsize = 1000,
         theta=150, phi=45, zoom=0.7, fov=50)
 render_snapshot(clear=TRUE)
 
@@ -108,7 +114,7 @@ Add some shading to the scene with {rayshader}
 ov %>%
   add_shadow(., ray_shade(tc, zscale=20*0.75, 
                           sunangle=70, sunaltitude= 30), 0) %>% 
-  plot_3d(., tc, zscale=20*0.75,  windowsize = 1000,
+  plot_3d(., tc, zscale=20*0.75,  triangulate = T, windowsize = 1000,
           theta=150, phi=45, zoom=0.7, fov=50)
 
 render_snapshot(clear=TRUE)
@@ -129,7 +135,6 @@ texture <- sphere_shade(tc, texture = create_texture("#4E193D", "#4474A0", "#D4B
                                         end_transition = max(tc)*0.2)) %>%
   add_overlay(generate_altitude_overlay(ov, tc, start_transition=max(tc)*0.99,
                                         end_transition = max(tc)*0.72), rescale_original = T)
-
 plot_3d(texture, tc, triangulate = T, solid = FALSE, 
         zscale=20*0.75,  windowsize = 1000,
           theta=150, phi=45, zoom=0.7, fov=50)
