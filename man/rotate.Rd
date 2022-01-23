@@ -6,6 +6,13 @@
 \usage{
 rotate(x)
 }
+\arguments{
+\item{x}{Matrix}
+}
+\value{
+Rotated matrix
+}
 \description{
 Internal function which is used to rotate matrices and arrays.
 }
+\keyword{internal}

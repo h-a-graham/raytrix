@@ -14,11 +14,12 @@ plot_3d_mesh(
 )
 }
 \arguments{
-\item{height_map}{a height map matrix generated with either \code{raytrix::topo_matrix()} or \code{rayshader::raster_to_matrix()}}
+\item{height_map}{a height map matrix generated with either \code{raytrix::topo_matrix()} or \code{rayshader::raster_to_matrix()}.
+OR you can also provide a 'RasterLayer' also...}
 
 \item{texture}{The output from a {rayshader} pipeline or output of \code{raytrix::map_drape()}}
 
-\item{zscale}{Numeric value controlling the aspect ratio of the scene. used by \code{rgl::aspect3d()} so it doesn't behave like rayshaders typical zscale arg,}
+\item{zscale}{Numeric value controlling the aspect ratio of the scene. used by \code{rgl::aspect3d()} so it doesn't behave like rayshader's typical zscale arg,}
 
 \item{lit}{Boolean, default FALSE. Do you want to light the mesh faces?}
 
