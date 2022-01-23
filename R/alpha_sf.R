@@ -31,6 +31,11 @@ alpha_sf <- function(texture, sf_feature, alpha_1_buff,
   i <- rayimage::render_convolution_fft(lo, kernel_dim=kernel_dim, ...) %>%
     scales::rescale(., c(0,1))
 
-  texture[,,4] <- i[,,4]
+  if (dim(texture)[3]==4){
+    texture[,,4] <- i[,,4]
+  } else if (dim(texture)[3]==3){
+    texture <- abind::abind(texture, i[,,1])
+  } else ('stop... incorrect number of bands. ')
   texture
 }
+
