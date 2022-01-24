@@ -14,7 +14,7 @@ coverage](https://codecov.io/gh/h-a-graham/raytrix/branch/main/graph/badge.svg)]
 A [{rayshader}](https://www.rayshader.com/index.html) plugin providing a
 spatial framework and convenience functions for accessing spatial data.
 This is similar to and may replace
-[{ravista}](https://github.com/h-a-graham/rayvista). But things are
+[{rayvista}](https://github.com/h-a-graham/rayvista). But things are
 still very much under development.
 
 ### Quick Introduction
