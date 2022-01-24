@@ -33,7 +33,7 @@ topo_matrix <- function(res, src='gebco', resample='CubicSpline', ...) {
 #' Function to view options that can be used for the `src` value of
 #' ratrix::topo_matrix()
 #'
-#' @return A character vector with strings that can be used to set the topogrpahy
+#' @return A character vector with strings that can be used to set the topography
 #' data source in raytrix::topo_matrix()
 #'
 #' @export
