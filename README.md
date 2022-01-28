@@ -26,8 +26,8 @@ still very much under development.
 **Project Canvas:** with {raytrix} we must first set out a strict
 geospatial region which defines the bounds of the area to be mapped;
 This is referred to as the canvas. This can be achieved by direct input
-or with a spatial oject (currently sf and RasterLayer, RasterBrick).
-global values are set of extent and projections which can be viewed with
+or with a spatial object (currently sf and RasterLayer, RasterBrick).
+Global values are set of extent and projections which can be viewed with
 get_canvas(). An Extent object can be produced and be used with
 {rayshader} functions such as `generate_overlay`.
 
@@ -49,7 +49,7 @@ i.e. matrix for the `topo_matrix` and 4 dimensional array for the
     topo_matrix(res, src='aws', ...)  
     map_drape(res, src='esri.aerial', alpha=1 ...) # many options now available here - need to check in on API Key requirements.
 
-**Helplers:** Some additional helpers for easing interoperability with
+**Helpers:** Some additional helpers for easing interoperability with
 other spatial and plotting libraries (More to come here:
 
     texture_to_brick() #  converts a rayshader texture to a raster with the correct extent and crs.
