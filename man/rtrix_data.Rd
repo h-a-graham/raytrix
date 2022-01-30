@@ -4,10 +4,18 @@
 \alias{rtrix_data}
 \title{High Level Data download method.}
 \usage{
-rtrix_data(dsn, res, resample, ..., bands = 1L)
+rtrix_data(dsn, res, resample, ..., bands = 1L, dimension)
 }
 \arguments{
 \item{res}{The desired cell resolution of the matrix in canvas CRS units.}
+
+\item{resample}{...}
+
+\item{...}{...}
+
+\item{bands}{...}
+
+\item{dimension}{...}
 
 \item{src}{The server from which to download topographic or map data. See details:}
 }

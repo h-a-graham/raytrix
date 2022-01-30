@@ -9,6 +9,7 @@ topo_matrix(
   src = "gebco",
   resample = "CubicSpline",
   out_type = "matrix",
+  dimension,
   ...
 )
 }
@@ -18,6 +19,14 @@ topo_matrix(
 \item{src}{Default is 'gebco'. The server from which to download topographic
 data. Use \code{raytrix::topo_sources()} to view available sources (via {toppgraphy}).
 See details.}
+
+\item{resample}{...}
+
+\item{out_type}{...}
+
+\item{dimension}{...}
+
+\item{...}{...}
 }
 \description{
 retrieve a topographical matrix for the canvas region. Set the resolution

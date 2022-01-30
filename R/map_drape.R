@@ -13,22 +13,32 @@
 #'
 #' @export
 map_drape <- function(res, src="wms_virtualearth",
-                      alpha=1, resample = 'Average', ...){
+                      alpha=1, resample = 'Average', ..., dimension){
+
+  if (missing(res) & missing(dimension)) stop("Missing Value. You must provide either the desired resolution with 'res' or dimension with 'dimension'")
+
   src <- get_map_xml(src)
 
-  # gdalio::gdalio_set_default_grid(get_canvas(res))
-  # v <- gdalio_data(src, resample, ..., bands = 1:3)
-  v <- rtrix_data(src, res, resample, ..., bands = 1:3)
-  g <- get_canvas(res)
+  if (!missing(res)){
+    v <- rtrix_data(src, res, resample, ..., bands = 1:3)
+    g <- get_canvas(res)
+    target_dim <- g$dimension
+  } else {
+    v <- rtrix_data(dsn=src, resample=resample,
+                    ..., bands = 1:3,
+                    dimension=dimension)
+    g <- get_canvas()
+    target_dim <- dimension
+  }
 
   matrix_thing <- function(.v){
-    m <- matrix(as.numeric(.v), g$dimension[1])#[,g$dimension[2]:1, drop = F]
+    m <- matrix(as.numeric(.v), target_dim[1])#[,g$dimension[2]:1, drop = F]
     rotate(m)
   }
 
   v2 <- lapply(v, matrix_thing)
-  a <- matrix(NA, g$dimension[2],g$dimension[1])
-  aa <- array(c(unlist(v2, use.names = FALSE), a), c(g$dimension[2], g$dimension[1], 4))[,g$dimension[1]:1, , drop = FALSE]
+  a <- matrix(NA, target_dim[2],target_dim[1])
+  aa <- array(c(unlist(v2, use.names = FALSE), a), c(target_dim[2], target_dim[1], 4))[,target_dim[1]:1, , drop = FALSE]
   aa <- aa%>%
     scales::rescale(.,to=c(0,1))
   aa[,,4] <- alpha

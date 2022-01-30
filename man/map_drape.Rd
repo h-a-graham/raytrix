@@ -4,7 +4,14 @@
 \alias{map_drape}
 \title{Get map overlay as array}
 \usage{
-map_drape(res, src = "wms_virtualearth", alpha = 1, resample = "Average", ...)
+map_drape(
+  res,
+  src = "wms_virtualearth",
+  alpha = 1,
+  resample = "Average",
+  ...,
+  dimension
+)
 }
 \arguments{
 \item{res}{The desired cell resolution of the matrix in canvas CRS units.}

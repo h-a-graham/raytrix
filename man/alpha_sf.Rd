@@ -2,32 +2,36 @@
 % Please edit documentation in R/alpha_sf.R
 \name{alpha_sf}
 \alias{alpha_sf}
-\title{create a faded alpha layer for a texture map}
+\title{Create a faded alpha layer based on an sf object for a texture map}
 \usage{
 alpha_sf(
   texture,
   sf_feature,
-  alpha_1_buff,
-  kernel_dim = c(9, 9),
+  alpha_1_buff = 10,
+  kernel_dim = c(11, 11),
   kernel_extent = 9,
   ...
 )
 }
 \arguments{
-\item{texture}{...}
+\item{texture}{A 3 or 4 layer array. This can be a rayshader-generated
+texture/hillshade or array generated with \code{raytrix::map_drape}.}
 
-\item{sf_feature}{...}
+\item{sf_feature}{object of class sf. Sets the focal region with highest alpha.}
 
-\item{alpha_1_buff}{...}
+\item{alpha_1_buff}{Default 10. The distance away from the sf object that
+should have no transparency (i.e. an alpha value of 1).}
 
-\item{kernel_dim}{...}
+\item{kernel_dim}{Default c(11, 11). The dimension of the gaussian kernel. see: \code{rayimage::render_convolution_fft}}
 
-\item{kernel_extent}{...}
+\item{kernel_extent}{Default 9. Extent over which to calculate the kernel. see \code{rayimage::render_convolution_fft}}
 
 \item{...}{passed to \code{rayimage::render_convolution_fft}}
 }
 \description{
-...
+This function enables the creation of custom alpha layers for map textures.
+It allows for the blending of layers at varying distances from an area/feature
+defined by an sf object
 }
 \details{
 ...

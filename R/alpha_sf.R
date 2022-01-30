@@ -1,18 +1,22 @@
-#' create a faded alpha layer for a texture map
+#' Create a faded alpha layer based on an sf object for a texture map
 #'
-#' ...
+#' This function enables the creation of custom alpha layers for map textures.
+#' It allows for the blending of layers at varying distances from an area/feature
+#' defined by an sf object
 #'
-#' @param texture ...
-#' @param sf_feature ...
-#' @param alpha_1_buff ...
-#' @param kernel_dim ...
-#' @param kernel_extent ...
+#' @param texture A 3 or 4 layer array. This can be a rayshader-generated
+#' texture/hillshade or array generated with `raytrix::map_drape`.
+#' @param sf_feature object of class sf. Sets the focal region with highest alpha.
+#' @param alpha_1_buff Default 10. The distance away from the sf object that
+#' should have no transparency (i.e. an alpha value of 1).
+#' @param kernel_dim Default c(11, 11). The dimension of the gaussian kernel. see: `rayimage::render_convolution_fft`
+#' @param kernel_extent Default 9. Extent over which to calculate the kernel. see `rayimage::render_convolution_fft`
 #' @param ... passed to `rayimage::render_convolution_fft`
 #' @details
 #' ...
 #' @export
-alpha_sf <- function(texture, sf_feature, alpha_1_buff,
-                     kernel_dim=c(9,9), kernel_extent=9, ...){
+alpha_sf <- function(texture, sf_feature, alpha_1_buff=10,
+                     kernel_dim=c(11,11), kernel_extent=9, ...){
 
   geom_type <- unique(st_geometry_type(sf_feature))
 
@@ -32,7 +36,7 @@ alpha_sf <- function(texture, sf_feature, alpha_1_buff,
     scales::rescale(., c(0,1))
 
   if (dim(texture)[3]==4){
-    texture[,,4] <- i[,,4]
+    texture[,,4] <- i[,,1]
   } else if (dim(texture)[3]==3){
     texture <- abind::abind(texture, i[,,1])
   } else ('stop... incorrect number of bands. ')
