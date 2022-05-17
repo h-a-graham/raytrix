@@ -16,7 +16,7 @@
 #' See https://github.com/hypertidy/gdalio and https://gdal.org/drivers/raster/wms.html for examples of custom sources from the web. Alternatively, you can download a file and specify the local path.
 
 #' @export
-topo_matrix <- function(res, src='gebco', resample='CubicSpline', out_type='matrix', dimension, ...) {
+topo_matrix <- function(res, src='aws', resample='CubicSpline', out_type=c('matrix','raster','terra', 'stars'), dimension, ...) {
 
     if (missing(res) & missing(dimension)) stop("Missing Value. You must provide either the desired resolution with 'res' or dimension with 'dimension'")
 
@@ -37,24 +37,7 @@ topo_matrix <- function(res, src='gebco', resample='CubicSpline', out_type='matr
 
     }
 
-
-
-    if (out_type=='matrix'){
-      m <- matrix(v[[1]], target_dim[1])[,target_dim[2]:1, drop = F]
-      m <- rotate(rotate(m)) %>%
-        apply(2,rev)
-      return(m)
-    } else if (out_type=='raster'){
-      r <- raster::raster(raster::extent(g$extent), nrows = g$target_dim[2], ncols = g$target_dim[1], crs = g$projection)
-      if (length(v) > 1) {
-        r <- raster::brick(replicate(length(v), r, simplify = FALSE))
-      }
-      r <- raster::setValues(r, do.call(cbind, v))
-      return(r)
-    }
-
-
-
+    vector_to_raster(v, g, target_dim, out_type)
 
 }
 

@@ -4,7 +4,10 @@
 \alias{map_sources}
 \title{View options for Map layers}
 \usage{
-map_sources()
+map_sources(full.df = FALSE)
+}
+\arguments{
+\item{full.df}{default FALSE. If TRUE a dataframe with source and names is returned}
 }
 \value{
 A character vector with strings that can be used to set the topogrpahy

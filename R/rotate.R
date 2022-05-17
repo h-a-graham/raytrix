@@ -5,7 +5,10 @@
 #' @return Rotated matrix
 #' @keywords internal
 #'
-rotate <- function(x) t(apply(x, 2, rev))
+rotate <- function(x){
+  t(apply(x, 2, rev))
+  # x[nrow(x):1,ncol(x):1]
+}
 
 #' Flip Left-Right
 #'
