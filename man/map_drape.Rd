@@ -10,7 +10,8 @@ map_drape(
   alpha = 1,
   resample = "Average",
   ...,
-  dimension
+  dimension,
+  out_type = c("matrix", "raster", "terra", "stars")
 )
 }
 \arguments{

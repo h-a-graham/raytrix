@@ -4,7 +4,7 @@
 \alias{heightmap_to_raster}
 \title{Covert a rayshader heightmap to a Raster}
 \usage{
-heightmap_to_raster(heightmap)
+heightmap_to_raster(heightmap, out_type = c("raster", "terra", "stars"))
 }
 \arguments{
 \item{texture}{The texture created from a rayshader pipeline.}
@@ -14,7 +14,5 @@ An object of class 'RasterBrick' from the {raster} package.
 data.
 }
 \description{
-retrieve rayshader texture as a RasterBrick. This is handy if you want to
-save the texture as to file with spatial reference or if you want  to plot in
-an alternative package such as ggplot or tmap etc.
+Pretty sure we don't need or want this now...
 }

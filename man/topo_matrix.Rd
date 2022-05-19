@@ -6,9 +6,9 @@
 \usage{
 topo_matrix(
   res,
-  src = "gebco",
+  src = "aws",
   resample = "CubicSpline",
-  out_type = "matrix",
+  out_type = c("matrix", "raster", "terra", "stars"),
   dimension,
   ...
 )

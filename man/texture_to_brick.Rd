@@ -4,10 +4,12 @@
 \alias{texture_to_brick}
 \title{Covert a rayshader texture to a RasterBrick}
 \usage{
-texture_to_brick(texture)
+texture_to_brick(texture, out_type = c("raster", "terra", "stars"))
 }
 \arguments{
 \item{texture}{The texture created from a rayshader pipeline.}
+
+\item{out_type}{set the return class of the raster stack/brick. see details.}
 }
 \value{
 An object of class 'RasterBrick' from the {raster} package.
@@ -17,4 +19,8 @@ data.
 retrieve rayshader texture as a RasterBrick. This is handy if you want to
 save the texture as to file with spatial reference or if you want  to plot in
 an alternative package such as ggplot or tmap etc.
+}
+\details{
+For \code{out_type}, 'raster' retruns an object of class RasterBrick, 'terra'
+returns a 'SpatRaster' and 'stars returns a 'stars' object.
 }
