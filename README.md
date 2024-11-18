@@ -11,6 +11,9 @@ coverage](https://codecov.io/gh/h-a-graham/raytrix/branch/main/graph/badge.svg)]
 <img src="man/figures/raytrixHEX_editLR.png" width="40%" />
 </p>
 
+**This repository is currently not being actively maintained and the package will not work due to substantial changes in dependencies - one day I really hope to pick it up again**
+
+
 A [{rayshader}](https://www.rayshader.com/index.html) plugin providing a
 spatial framework and convenience functions for accessing spatial data.
 This is similar to and may replace
