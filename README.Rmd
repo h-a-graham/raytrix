@@ -70,7 +70,7 @@ topo_matrix(res, src='aws', ...)
 map_drape(res, src='esri.aerial', alpha=1 ...) # many options now available here - need to check in on API Key requirements.
 ```
 
-**Helplers:**
+**Helpers:**
 Some additional helpers for easing interoperability with other spatial and 
 plotting libraries (More to come here:
 
@@ -120,7 +120,7 @@ Global hill shade using the Adams World in a Square II projection.
 ``` {r AdamsWorld, message=FALSE, warning=FALSE, results='hide', out.width=800, height.width=800}
 prj <- "+proj=adams_ws2"
 set_canvas_world(projection = prj)
-# get_canvas(3e4) # check canvas resolution with this in case your being ambitious...
+# get_canvas(3e4) # check canvas resolution with this in case you're being ambitious...
 
 tm <- topo_matrix(3e4)
 grats <- sf::st_as_sf(graticule::graticule(proj = prj, tiles=T)) # get graticule
